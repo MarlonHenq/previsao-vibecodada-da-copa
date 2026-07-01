@@ -1,0 +1,42 @@
+{
+  "tournament": "FIFA World Cup 2026",
+  "as_of": "2026-06-30",
+  "rounds": ["r32", "r16", "qf", "sf", "final"],
+  "matches": [
+    {"id": "M73", "round": "r32", "home": "South Africa", "away": "Canada", "neutral": true, "winner": "Canada"},
+    {"id": "M74", "round": "r32", "home": "Germany", "away": "Paraguay", "neutral": true, "winner": "Paraguay", "note": "1-1, Paraguay pens"},
+    {"id": "M75", "round": "r32", "home": "Netherlands", "away": "Morocco", "neutral": true, "winner": "Morocco", "note": "1-1, Morocco pens"},
+    {"id": "M76", "round": "r32", "home": "Brazil", "away": "Japan", "neutral": true, "winner": "Brazil"},
+    {"id": "M77", "round": "r32", "home": "France", "away": "Sweden", "neutral": true, "winner": "France"},
+    {"id": "M78", "round": "r32", "home": "Ivory Coast", "away": "Norway", "neutral": true, "winner": "Norway"},
+    {"id": "M79", "round": "r32", "home": "Mexico", "away": "Ecuador", "neutral": false},
+    {"id": "M80", "round": "r32", "home": "England", "away": "DR Congo", "neutral": true},
+    {"id": "M81", "round": "r32", "home": "United States", "away": "Bosnia and Herzegovina", "neutral": false},
+    {"id": "M82", "round": "r32", "home": "Belgium", "away": "Senegal", "neutral": true},
+    {"id": "M83", "round": "r32", "home": "Portugal", "away": "Croatia", "neutral": true},
+    {"id": "M84", "round": "r32", "home": "Spain", "away": "Austria", "neutral": true},
+    {"id": "M85", "round": "r32", "home": "Switzerland", "away": "Algeria", "neutral": true},
+    {"id": "M86", "round": "r32", "home": "Argentina", "away": "Cape Verde", "neutral": true},
+    {"id": "M87", "round": "r32", "home": "Colombia", "away": "Ghana", "neutral": true},
+    {"id": "M88", "round": "r32", "home": "Australia", "away": "Egypt", "neutral": true},
+
+    {"id": "M89", "round": "r16", "home_from": "M74", "away_from": "M77", "neutral": true},
+    {"id": "M90", "round": "r16", "home_from": "M73", "away_from": "M75", "neutral": true},
+    {"id": "M91", "round": "r16", "home_from": "M76", "away_from": "M78", "neutral": true},
+    {"id": "M92", "round": "r16", "home_from": "M79", "away_from": "M80", "neutral": true},
+    {"id": "M93", "round": "r16", "home_from": "M83", "away_from": "M84", "neutral": true},
+    {"id": "M94", "round": "r16", "home_from": "M81", "away_from": "M82", "neutral": true},
+    {"id": "M95", "round": "r16", "home_from": "M86", "away_from": "M88", "neutral": true},
+    {"id": "M96", "round": "r16", "home_from": "M85", "away_from": "M87", "neutral": true},
+
+    {"id": "M97", "round": "qf", "home_from": "M89", "away_from": "M90", "neutral": true},
+    {"id": "M98", "round": "qf", "home_from": "M93", "away_from": "M94", "neutral": true},
+    {"id": "M99", "round": "qf", "home_from": "M91", "away_from": "M92", "neutral": true},
+    {"id": "M100", "round": "qf", "home_from": "M95", "away_from": "M96", "neutral": true},
+
+    {"id": "M101", "round": "sf", "home_from": "M97", "away_from": "M98", "neutral": true},
+    {"id": "M102", "round": "sf", "home_from": "M99", "away_from": "M100", "neutral": true},
+
+    {"id": "M104", "round": "final", "home_from": "M101", "away_from": "M102", "neutral": true}
+  ]
+}

@@ -102,9 +102,26 @@ python cli.py predict --team-a Brasil --team-b Argentina --neutral
 
 ```bash
 python cli.py rank --top 20          # ranking global por força
+python cli.py simulate-tournament --sims 20000   # simula o resto da Copa!
 python cli.py backtest               # stub — Fase 3 ainda não chegou
 python cli.py --help                 # a Bíblia
 ```
+
+### Simular o torneio inteiro (a novidade)
+
+A partir do estado atual do mata-mata (6 jogos do R32 já decididos em 30/06):
+
+```bash
+python cli.py simulate-tournament --sims 50000
+```
+
+Mostra:
+- **Probabilidade de campeão** (quem levanta a taça)
+- **Probabilidade de finalista** (chegar à final)
+- **Probabilidade de semifinal**
+- Resultados já conhecidos do R32
+
+A chave está em `data/wc2026_bracket.json`. Quando sair um resultado novo, atualize o `winner` do jogo ou rode `sync-wc2026` e edite o bracket.
 
 ---
 
@@ -185,9 +202,10 @@ Quando sair um resultado novo:
 ## Roadmap (o que ainda não vibecodamos)
 
 - [x] Fase 1 — CLI + bootstrap + ensemble heurístico + Copa 2026
+- [x] Simulador de chaves (`simulate-tournament`) a partir do estado atual
 - [ ] Fase 2 — Dixon-Coles MLE real + calibração isotônica + backtest walk-forward
 - [ ] Fase 3 — PyMC NUTS hierárquico com posterior completa
-- [ ] Fase 4 — Simulador de chaves (grupos → mata-mata) + recalibração pós-jogo
+- [ ] Fase 4 — Recalibração pós-jogo + atualização automática do bracket
 
 ---
 

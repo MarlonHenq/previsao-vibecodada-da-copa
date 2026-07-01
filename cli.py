@@ -12,7 +12,7 @@ from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
-from backtest import run_backtest
+from simulate_tournament import simulate_tournament
 from bootstrap_data import run_bootstrap, sync_wc2026
 from model import (
     DEFAULT_CONTEXT,
@@ -215,6 +215,66 @@ def rank(
             f"{row.get('beta', 0):.3f}",
         )
     console.print(table)
+
+
+@app.command("simulate-tournament")
+def simulate_tournament_cmd(
+    weights_path: Path = typer.Option(DEFAULT_WEIGHTS, "--weights"),
+    sims: int = typer.Option(20_000, "--sims", help="Number of full tournament simulations"),
+    seed: int = typer.Option(42, "--seed"),
+    top: int = typer.Option(15, "--top", help="Rows in probability tables"),
+):
+    """Simulate the rest of WC 2026 knockout from current results (Monte Carlo)."""
+    weights = load_weights(weights_path)
+    result = simulate_tournament(weights=weights, n_sims=sims, seed=seed)
+
+    console.print(Panel(
+        f"[bold]Copa 2026 — simulação do mata-mata[/bold]\n"
+        f"Estado em: {result['as_of']} | {result['completed_r32']}/16 R32 decididos | "
+        f"{result['pending_r32']} R32 restantes\n"
+        f"{sims:,} torneios simulados",
+        title="simulate-tournament",
+    ))
+
+    if result["known_winners"]:
+        known = Table(title="Resultados já conhecidos (R32)")
+        known.add_column("Jogo")
+        known.add_column("Vencedor", style="green")
+        for mid, team in sorted(result["known_winners"].items()):
+            known.add_row(mid, team)
+        console.print(known)
+
+    champ = Table(title=f"Probabilidade de CAMPEÃO (top {top})")
+    champ.add_column("#", style="dim")
+    champ.add_column("Seleção")
+    champ.add_column("Prob.", justify="right")
+    for i, row in enumerate(result["champion"][:top], 1):
+        champ.add_row(str(i), row["team"], f"{row['probability']:.1%}")
+    console.print(champ)
+
+    final = Table(title=f"Probabilidade de chegar à FINAL (top {top})")
+    final.add_column("#", style="dim")
+    final.add_column("Seleção")
+    final.add_column("Prob.", justify="right")
+    for i, row in enumerate(result["finalist"][:top], 1):
+        final.add_row(str(i), row["team"], f"{row['probability']:.1%}")
+    console.print(final)
+
+    sf = Table(title=f"Probabilidade de SEMIFINAL (top {top})")
+    sf.add_column("#", style="dim")
+    sf.add_column("Seleção")
+    sf.add_column("Prob.", justify="right")
+    for i, row in enumerate(result["semifinal"][:top], 1):
+        sf.add_row(str(i), row["team"], f"{row['probability']:.1%}")
+    console.print(sf)
+
+    c, r = result["sample_final"]
+    console.print(Panel(
+        f"[bold green]{c}[/bold green] campeão na simulação de exemplo\n"
+        f"Finalista: {r}\n"
+        f"(1 entre {sims:,} cenários — veja as tabelas acima para probabilidades)",
+        title="Exemplo de final simulada",
+    ))
 
 
 @app.command()
